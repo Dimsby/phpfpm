@@ -6,7 +6,7 @@ services:
             dockerfile: ./docker/nginx/Dockerfile
         depends_on:
             - php
-        container_name: lv_nginx
+        container_name: nginx
         ports:
             - 80:80
             - 443:443
@@ -17,7 +17,7 @@ services:
         build:
             context: .
             dockerfile: ./docker/php/Dockerfile
-        container_name: lv_php
+        container_name: php
         environment:
             PHP_IDE_CONFIG: ${PHP_IDE_CONFIG:-serverName=docker}
             XDEBUG_MODE: ${XDEBUG_MODE:-debug}
@@ -28,7 +28,7 @@ services:
 
     composer:
         image: composer:latest
-        container_name: lv_composer
+        container_name: php_composer
         volumes:
             - ./src:/var/www/html
         working_dir: /var/www/html
@@ -37,7 +37,7 @@ services:
         build:
             context: .
             dockerfile: ./docker/php/Dockerfile
-        container_name: lv_artisan
+        container_name: php_artisan
         volumes:
             - ./src:/var/www/html
         working_dir: /var/www/html
